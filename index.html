@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #4c669f, #3b5998, #192f6a);
+            color: #fff;
+            text-align: center;
+            padding: 40px 20px;
+            /* height: 100vh; */
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        /* Upload Box */
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            margin: auto;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="file"] {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            padding: 12px;
+            width: 100%;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 8px;
+            color: #fff;
+            transition: 0.3s;
+        }
+
+        input[type="file"]::file-selector-button {
+            background: #ff9800;
+            border: none;
+            padding: 10px 15px;
+            color: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background: #e68900;
+        }
+
+        /* Button Styles */
+        .btn {
+            background: #ff5722;
+            border: none;
+            padding: 12px 18px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 8px;
+            color: white;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: #e64a19;
+            transform: scale(1.05);
+        }
+
+        /* Image Styling */
+        img {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            display: none;
+            margin-top: 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOMEPAGE</title>
+</head>
+<body>
+
+
+    <h1>Remove Background from Image - AI Tool</h1>
+    <div class="container">
+        <input type="file" id="imageInput" accept="image/*">
+        <br>
+        <img id="preview" alt="Image Preview">
+        <br>
+        <button class="btn" onclick="uploadImage()">Remove Background</button>
+        <br><br>
+        <h2>Processed Image:</h2>
+        <img id="output" alt="Background Removed Image">
+    </div>
+
+
+    <script>
+        document.getElementById("imageInput").addEventListener("change", function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById("preview").src = e.target.result;
+                    document.getElementById("preview").style.display = "block";
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+async function uploadImage() {
+      const fileInput = document.getElementById("imageInput");
+            if (!fileInput.files.length) {
+                alert("Please select an image first.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("image", fileInput.files[0]);
+
+             try {
+                const response = await fetch("http://localhost:5000/remove-bg", {
+                    method: "POST",
+                    body: formData
+                });
+                if (!response.ok) {
+                    throw new Error("Failed to remove background");
+                }
+                const blob = await response.blob();
+                const url = URL.createObjectURL(blob);
+                console.log(url)
+                document.getElementById("output").src = url;
+                document.getElementById("output").style.display = "block";
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Error removing background.");
+            }
+
+
+}
+    </script>
+</body>
+</html>
