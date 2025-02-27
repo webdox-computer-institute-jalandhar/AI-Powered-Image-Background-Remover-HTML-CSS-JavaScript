@@ -14,7 +14,7 @@ This project allows users to **remove the background** from an image using an AI
 - **HTML5** for the structure.
 - **CSS3** for styling and responsiveness.
 - **JavaScript (ES6)** for handling file input and API requests.
-- **Backend API** (Python/Flask or any AI-based service) for background removal.
+- **Backend API with Express JS** for background removal.
 
 ## 📸 Screenshot
 ![Demo](https://i.postimg.cc/gcHf8V3V/Remove-Image-Background-with-AI-Webdox-Computer-Institute.png)
