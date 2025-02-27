@@ -1,7 +1,7 @@
-# Remove Background from Image - AI Tool
+# Remove Background from Image - Remove.bg AI Tool
 
 ## 🚀 Overview
-This project allows users to **remove the background** from an image using an AI-powered API. It features an intuitive **file upload**, a **side-by-side image preview**, and a smooth **user experience** with a stylish UI.
+This project allows users to **remove the background** from an image using an AI-powered API. It features an intuitive **file upload**, a **side-by-side image preview**, and a smooth **user experience** with a stylish UI with Remove.bg API.
 
 ## 🎯 Features
 - 📤 Upload an image from your computer.
